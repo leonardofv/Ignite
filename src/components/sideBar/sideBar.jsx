@@ -1,0 +1,23 @@
+import S from './sideBar.module.css';
+
+export function SideBar() {
+    return (
+        <aside className={S.sideBar}>
+            
+            <img className={S.cover} src="https://bairesdev.mo.cloudinary.net/blog/2023/09/How-Many-Web-Developers-in-the-World-1.jpg?tx=w_500,q_50" />
+
+            <div className={S.profile}>
+                <strong>Leonardo</strong>
+                <span>
+                    Developer
+                </span>
+            </div>
+
+            <footer className={S.footer}>
+                <a href="">
+                    Editar seu perfil
+                </a>
+            </footer>
+        </aside>
+    )
+}
