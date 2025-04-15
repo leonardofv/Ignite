@@ -29,6 +29,18 @@ export function Post() {
                     <a href=""> #rocktseat</a>
                 </p>
             </div>
+
+            <form className={S.commentForm}>
+                <strong>Deixe seu feedback</strong>
+
+                <textarea 
+                    placeholder='Deixe um comentário'
+                />
+
+                <footer>
+                    <button type='submit'>Publicar</button>
+                </footer>
+            </form>
         </article>
     )
 }
