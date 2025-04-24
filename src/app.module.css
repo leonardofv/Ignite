@@ -1,6 +1,6 @@
 
 .wrapper {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     max-width: 70rem;
     margin: 2rem auto;
     padding: 0 1rem;
@@ -11,6 +11,11 @@
 
 }
 
-.sideBar {
-    border: 2px solid red;
+@media (max-width: 600px) {
+    html {
+        font-size: 87.5%;
+    }
+    .wrapper {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,7 +1,13 @@
 import S from './Avatar.module.css';
 
-export function Avatar(props) {
+export function Avatar({hasBorder = true, src}) { //desestruturação
+
+    // const hasBorder = props.hasBorder != false; //controlar borda
+
     return (
-         <img className={S.avatar} src={props.src} />
+         <img 
+            className={ hasBorder ? S.avatarWithBorder : S.avatar } 
+            src={src} 
+         />
     )
 }

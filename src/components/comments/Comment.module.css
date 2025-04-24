@@ -1,5 +1,5 @@
 .comment {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     display: flex;
     margin-top: 1.5rem;
     gap: 1rem;
@@ -10,7 +10,7 @@
 }
 
 .commentContent {
-    border: 2px solid white;
+    /* border: 2px solid white; */
     background-color: var(--gray-700);
     border-radius: 8px;
     padding: 1rem;
@@ -75,7 +75,7 @@
 }
 
 .commentBox footer button svg {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     margin-right: 0.5rem;
 }
 
