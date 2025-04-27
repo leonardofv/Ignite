@@ -2,23 +2,31 @@ import S from './post.module.css';
 import { Avatar } from '../avatar/Avatar';
 import { Comment } from '../comments/Comment';
 
-export function Post(props) {
+export function Post({ author, publishedAt }) {
 
-    console.log(props);
+    const dateTimeFormatted = new Intl.DateTimeFormat("pt-BR", {
+       day: "numeric",
+       month: "long",
+       year: "numeric",
+       hour: "2-digit",
+       minute: "2-digit"
+    }).format(publishedAt);
 
     return (
         <article className={S.post}>
             <header className={S.header}>
                 <div  className={S.author}>
-                    <Avatar src={props.author.avatarUrl}/>
+                    <Avatar src={author.avatarUrl}/>
 
                     <div className={S.authorInfor}>
-                        <strong>{props.author.name}</strong>
-                        <span>{props.author.role}</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
 
-                <time title="13 de abril" dateTime="2025-04-13 10:29:36">Públicado há 1h</time>
+                <time title={dateTimeFormatted} dateTime="2025-04-13 10:29:00">
+                    {dateTimeFormatted}
+                </time>
             </header>
 
             <div className={S.content}>

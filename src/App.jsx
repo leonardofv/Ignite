@@ -18,7 +18,7 @@ const posts = [
       { type: 'paragraph', content: 'acabei de subir mais um projeto no meu perfil do github. É um projeto que fiz no NLW Return, evento da Rocktseat. O nome do projeto é DoctorCare.' },
       { type: 'link', content: 'leonardofv/doctorCare' },
     ],
-    publishAt: new Date('2025-04-25 17:00:00'),
+    publishedAt: new Date('2025-04-25 17:00:00'),
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const posts = [
       { type: 'paragraph', content: 'acabei de subir mais um projeto no meu perfil do github. É um projeto que fiz no NLW Return, evento da Rocktseat. O nome do projeto é DoctorCare.' },
       { type: 'link', content: 'leonardofv/doctorCare' },
     ],
-    publishAt: new Date('2025-04-26 17:00:00'),
+    publishedAt: new Date('2025-04-26 17:00:00'),
   },
 ];
 
