@@ -2,15 +2,22 @@ import S from './post.module.css';
 import { Avatar } from '../avatar/Avatar';
 import { Comment } from '../comments/Comment';
 
-export function Post({ author, publishedAt }) {
+import { format, formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { Key } from '@phosphor-icons/react';
 
-    const dateTimeFormatted = new Intl.DateTimeFormat("pt-BR", {
-       day: "numeric",
-       month: "long",
-       year: "numeric",
-       hour: "2-digit",
-       minute: "2-digit"
-    }).format(publishedAt);
+export function Post({ author, publishedAt, content }) {
+
+    const dateTimeFormatted = format(publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
+        locale: ptBR,
+    });
+
+    const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+        locale: ptBR,
+        addSuffix: true,
+        includeSeconds: true,
+    })
+      
 
     return (
         <article className={S.post}>
@@ -24,13 +31,19 @@ export function Post({ author, publishedAt }) {
                     </div>
                 </div>
 
-                <time title={dateTimeFormatted} dateTime="2025-04-13 10:29:00">
-                    {dateTimeFormatted}
+                <time title={dateTimeFormatted} dateTime={publishedAt.toISOString()}>
+                    {publishedDateRelativeToNow}
                 </time>
             </header>
 
             <div className={S.content}>
-                
+                {content.map((item, index) => {
+                    if (item.type == 'paragraph') {
+                        return <p key={index}>{item.content}</p>
+                    }else if (item.type == 'link') {
+                        return <p key={index}><a href='#'>{item.content}</a></p>
+                    }
+                })}
             </div>
 
             <form className={S.commentForm}>
