@@ -9,19 +9,15 @@ import { useState } from 'react';
 export function Post({ author, publishedAt, content }) {
 
     const [ comments, setComments ] = useState([ ]);
+    const [ newCommentText, setNewCommentText ] = useState('');
 
-    const handleCreateNewComment = (event) => {
+    function handleCreateNewComment(event) {
         event.preventDefault();
 
-        const newCommnetText = event.target.inputTextArea.value;
-
-        if(event.target.inputTextArea.value != '') {
-            setComments([...comments, newCommnetText]);
-            event.target.inputTextArea.value = ''; //limpar input
-        }
+        setComments([...comments, newCommentText]);   
+        setNewCommentText('');  
         
     };
-    
 
     const dateTimeFormatted = format(publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
         locale: ptBR,
@@ -31,7 +27,7 @@ export function Post({ author, publishedAt, content }) {
         locale: ptBR,
         addSuffix: true,
         includeSeconds: true,
-    })
+    });
 
 
     return (
@@ -58,7 +54,7 @@ export function Post({ author, publishedAt, content }) {
                     }else if (item.type == 'link') {
                         return <p key={index}><a href='#'>{item.content}</a></p>
                     }
-                })}
+                })};
             </div>
 
             <form className={S.commentForm} onSubmit={handleCreateNewComment} >
@@ -67,6 +63,8 @@ export function Post({ author, publishedAt, content }) {
                 <textarea 
                     name='inputTextArea'
                     placeholder='Deixe um comentário'
+                    value={newCommentText}
+                    onChange={(event) => setNewCommentText(event.target.value)}
                 />
 
                 <footer>
