@@ -12,7 +12,13 @@ export function Post({ author, publishedAt, content }) {
 
     const handleCreateNewComment = (event) => {
         event.preventDefault();
-        setComments([...comments, comments.length + 1]);
+
+        const newCommnetText = event.target.inputTextArea.value;
+
+        if(event.target.inputTextArea.value != '') {
+            setComments([...comments, newCommnetText]);
+            event.target.inputTextArea.value = ''; //limpar input
+        }
         
     };
     
@@ -59,6 +65,7 @@ export function Post({ author, publishedAt, content }) {
                 <strong>Deixe seu feedback</strong>
 
                 <textarea 
+                    name='inputTextArea'
                     placeholder='Deixe um comentário'
                 />
 
@@ -69,7 +76,7 @@ export function Post({ author, publishedAt, content }) {
 
             <div className={S.commentList}>
                 {comments.map((comment) => {
-                    return < Comment />
+                    return < Comment content={comment} />
                 })}
             </div>
 
