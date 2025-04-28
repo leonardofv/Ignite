@@ -4,9 +4,18 @@ import { Comment } from '../comments/Comment';
 
 import { format, formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { Key } from '@phosphor-icons/react';
+import { useState } from 'react';
 
 export function Post({ author, publishedAt, content }) {
+
+    const [ comments, setComments ] = useState([ ]);
+
+    const handleCreateNewComment = (event) => {
+        event.preventDefault();
+        setComments([...comments, comments.length + 1]);
+        
+    };
+    
 
     const dateTimeFormatted = format(publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
         locale: ptBR,
@@ -17,7 +26,7 @@ export function Post({ author, publishedAt, content }) {
         addSuffix: true,
         includeSeconds: true,
     })
-      
+
 
     return (
         <article className={S.post}>
@@ -46,7 +55,7 @@ export function Post({ author, publishedAt, content }) {
                 })}
             </div>
 
-            <form className={S.commentForm}>
+            <form className={S.commentForm} onSubmit={handleCreateNewComment} >
                 <strong>Deixe seu feedback</strong>
 
                 <textarea 
@@ -59,7 +68,9 @@ export function Post({ author, publishedAt, content }) {
             </form>
 
             <div className={S.commentList}>
-                <Comment />
+                {comments.map((comment) => {
+                    return < Comment />
+                })}
             </div>
 
         </article>
