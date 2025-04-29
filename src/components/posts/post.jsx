@@ -11,13 +11,21 @@ export function Post({ author, publishedAt, content }) {
     const [ comments, setComments ] = useState([ ]);
     const [ newCommentText, setNewCommentText ] = useState('');
 
-    function handleCreateNewComment(event) {
+    const handleCreateNewComment = (event) => {
         event.preventDefault();
 
         setComments([...comments, newCommentText]);   
         setNewCommentText('');  
         
     };
+
+    const deleteComment = (commentToDelete) => {
+        
+        const commentWithOutDeletedOne = comments.filter((comment) => {
+            return comment != commentToDelete;
+        });
+        setComments(commentWithOutDeletedOne);
+    }
 
     const dateTimeFormatted = format(publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
         locale: ptBR,
@@ -48,11 +56,11 @@ export function Post({ author, publishedAt, content }) {
             </header>
 
             <div className={S.content}>
-                {content.map((item, index) => {
+                {content.map((item) => {
                     if (item.type == 'paragraph') {
-                        return <p key={index}>{item.content}</p>
+                        return <p key={item.content}>{item.content}</p>
                     }else if (item.type == 'link') {
-                        return <p key={index}><a href='#'>{item.content}</a></p>
+                        return <p key={item.content}><a href='#'>{item.content}</a></p>
                     }
                 })};
             </div>
@@ -74,7 +82,11 @@ export function Post({ author, publishedAt, content }) {
 
             <div className={S.commentList}>
                 {comments.map((comment) => {
-                    return < Comment content={comment} />
+                    return <Comment 
+                        key={comment} 
+                        content={comment} 
+                        onDeleteComment={deleteComment} 
+                    />
                 })}
             </div>
 
