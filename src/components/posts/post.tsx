@@ -4,34 +4,51 @@ import { Comment } from '../comments/Comment';
 
 import { format, formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
-export function Post({ author, publishedAt, content }) {
+//interface para o conteúdo
+interface Content {
+    type: "paragraph" | "link";
+    content: string;
+}
 
-    const [ comments, setComments ] = useState([ ]);
+interface PostProps {
+    author: {
+        name: string;
+        role: string;
+        avatarUrl: string;
+    },
+    publishedAt: Date,
+    content: Content[];
+}
+
+export function Post({ author, publishedAt, content }: PostProps) {
+
+    const [ comments, setComments ] = useState<string[]>([]);
     const [ newCommentText, setNewCommentText ] = useState('');
 
-    const handleCreateNewComment = (event) => {
+    const handleCreateNewComment = (event: FormEvent) => {
         event.preventDefault();
 
         setComments([...comments, newCommentText]);   
         setNewCommentText('');  
     };
-
-    const handleNewCommentChange = (event) => {
+                                        //informar onde está acontecendo o evento no formulário
+    const handleNewCommentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         event.target.setCustomValidity(''); //requerimento de campo obrigatório
         setNewCommentText(event.target.value)
     }
 
-    const handleNewCommentInvalid = (event) => {
+    const handleNewCommentInvalid = (event: InvalidEvent<HTMLTextAreaElement>) => {
         event.target.setCustomValidity('campo obrigatório');
     }
 
-    const deleteComment = (commentToDelete) => {
+    const deleteComment = (commentToDelete: string) => {
         
         const commentWithOutDeletedOne = comments.filter((comment) => {
             return comment != commentToDelete;
         });
+
         setComments(commentWithOutDeletedOne);
     }
 

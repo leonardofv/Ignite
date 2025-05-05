@@ -5,7 +5,23 @@ import { Header } from './components/header/header';
 import { SideBar } from './components/sideBar/sideBar';
 import { Post } from './components/posts/post';
 
-const posts = [
+interface Content {
+  type: "paragraph" | "link";
+  content: string;
+}
+
+interface PostData {
+  id: number;
+  author: {
+    avatarUrl: string;
+    name: string;
+    role: string;
+  };
+  content: Content[];
+  publishedAt: Date;
+};
+
+const posts: PostData[] = [
   {
     id: 1,
     author: {
@@ -13,10 +29,10 @@ const posts = [
       name: 'Leonardo Vasconcelos',
       role: 'Developer'
     },
-    content: [       
-      { type:  'paragraph', content: 'Fala galera' },
-      { type: 'paragraph', content: 'acabei de subir mais um projeto no meu perfil do github. É um projeto que fiz no NLW Return, evento da Rocktseat. O nome do projeto é DoctorCare.' },
-      { type: 'link', content: 'leonardofv/doctorCare' },
+    content: [
+      { type: "paragraph", content: "Fala galera" },
+      { type: "paragraph", content: "acabei de subir mais um projeto no meu perfil do github. É um projeto que fiz no NLW Return, evento da Rocktseat. O nome do projeto é DoctorCare." },
+      { type: "link", content: "leonardofv/doctorCare" },
     ],
     publishedAt: new Date('2025-04-25 17:00:00'),
   },
