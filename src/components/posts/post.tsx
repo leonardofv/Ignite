@@ -6,23 +6,31 @@ import { format, formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
+
+//interface altor
+interface Author {
+    name: string;
+    role: string;
+    avatarUrl: string;
+}
 //interface para o conteúdo
 interface Content {
     type: "paragraph" | "link";
     content: string;
 }
 
-interface PostProps {
-    author: {
-        name: string;
-        role: string;
-        avatarUrl: string;
-    },
-    publishedAt: Date,
+export interface PostType {
+    id: number;
+    author: Author;
+    publishedAt: Date;
     content: Content[];
 }
 
-export function Post({ author, publishedAt, content }: PostProps) {
+interface PostProps {
+    post: PostType;
+}
+
+export function Post({ post }: PostProps) {
 
     const [ comments, setComments ] = useState<string[]>([]);
     const [ newCommentText, setNewCommentText ] = useState('');
@@ -52,11 +60,11 @@ export function Post({ author, publishedAt, content }: PostProps) {
         setComments(commentWithOutDeletedOne);
     }
 
-    const dateTimeFormatted = format(publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
+    const dateTimeFormatted = format(post.publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
         locale: ptBR,
     });
 
-    const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt, {
         locale: ptBR,
         addSuffix: true,
         includeSeconds: true,
@@ -69,21 +77,21 @@ export function Post({ author, publishedAt, content }: PostProps) {
         <article className={S.post}>
             <header className={S.header}>
                 <div  className={S.author}>
-                    <Avatar src={author.avatarUrl}/>
+                    <Avatar src={post.author.avatarUrl}/>
 
                     <div className={S.authorInfor}>
-                        <strong>{author.name}</strong>
-                        <span>{author.role}</span>
+                        <strong>{post.author.name}</strong>
+                        <span>{post.author.role}</span>
                     </div>
                 </div>
 
-                <time title={dateTimeFormatted} dateTime={publishedAt.toISOString()}>
+                <time title={dateTimeFormatted} dateTime={post.publishedAt.toISOString()}>
                     {publishedDateRelativeToNow}
                 </time>
             </header>
 
             <div className={S.content}>
-                {content.map((item) => {
+                {post.content.map((item) => {
                     if (item.type == 'paragraph') {
                         return <p key={item.content}>{item.content}</p>
                     }else if (item.type == 'link') {

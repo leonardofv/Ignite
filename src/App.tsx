@@ -3,25 +3,11 @@ import './globals.css'
 
 import { Header } from './components/header/header';
 import { SideBar } from './components/sideBar/sideBar';
-import { Post } from './components/posts/post';
+import { Post, PostType } from './components/posts/post';
 
-interface Content {
-  type: "paragraph" | "link";
-  content: string;
-}
 
-interface PostData {
-  id: number;
-  author: {
-    avatarUrl: string;
-    name: string;
-    role: string;
-  };
-  content: Content[];
-  publishedAt: Date;
-};
 
-const posts: PostData[] = [
+const posts: PostType[] = [
   {
     id: 1,
     author: {
@@ -63,9 +49,7 @@ export function App() {
             return (
               <Post
                 key={post.id}
-                author={post.author}
-                content={post.content}
-                publishedAt={post.publishedAt}
+                post={post}
               />
             );
           })}
